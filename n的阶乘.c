@@ -28,35 +28,57 @@
 //	return 0;
 //}
 
+//#include <stdio.h>
+//int main()
+//{
+//	int arr[100] = { 0 };
+//	for (int i = 0; i < 100; i++)
+//	{
+//		arr[i] = i + 1;
+//	}
+//	int k;
+//	scanf_s("%d", &k);
+//	int left = 0;
+//	int right = sizeof(arr) / sizeof(arr[0]) - 1;
+//	int i1 = 1;
+//	while (left <= right)
+//	{
+//		int mid = (left + right) / 2;
+//		if (arr[mid] < k)
+//			left = mid + 1;
+//		else if (arr[mid] > k)
+//			right = mid - 1;
+//		else
+//		{
+//			printf("找到了，下标是:%d\n", mid);
+//			printf("找了%d次\n", i1);
+//			break;
+//		}
+//		i1++;
+//	}
+//	if (left > right)
+//		printf("找不到\n");
+//	return 0;
+//}
+
 #include <stdio.h>
+#include <string.h>
+#include <windows.h>
 int main()
 {
-	int arr[100] = { 0 };
-	for (int i = 0; i < 100; i++)
-	{
-		arr[i] = i + 1;
-	}
-	int k;
-	scanf_s("%d", &k);
+	char arr1[] = "welcome to bit!!!!!!";
+	char arr2[] = "####################";
 	int left = 0;
-	int right = sizeof(arr) / sizeof(arr[0]) - 1;
-	int i1 = 1;
+	int right = strlen(arr1) - 1;
 	while (left <= right)
 	{
-		int mid = (left + right) / 2;
-		if (arr[mid] < k)
-			left = mid + 1;
-		else if (arr[mid] > k)
-			right = mid - 1;
-		else
-		{
-			printf("找到了，下标是:%d\n", mid);
-			printf("找了%d次\n", i1);
-			break;
-		}
-		i1++;
+		arr2[left] = arr1[left];
+		arr2[right] = arr1[right];
+		Sleep(200);
+		system("cls");
+		left++;
+		right--;
+		printf("%s\n", arr2);
 	}
-	if (left > right)
-		printf("找不到\n");
 	return 0;
 }
