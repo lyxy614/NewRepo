@@ -1,0 +1,32 @@
+Full Name:MULLER Jette / HENTSCHEL Lena
+Rank:1
+DivePoints:46.80 + 45.60 + 61.20 + 66.03 + 67.50 = 287.13
+-----
+Full Name:BENT-ASHMEIL Desharne / ROLLINSON Amy
+Rank:2
+DivePoints:46.20 + 42.00 + 66.60 + 63.90 + 63.00 = 281.70
+-----
+Full Name:ERLAM Margo / WILSON Aimee
+Rank:3
+DivePoints:41.40 + 44.40 + 63.90 + 62.10 + 62.10 = 273.90
+-----
+Full Name:VAN DUIJN Celine / JANSEN Inge
+Rank:4
+DivePoints:42.60 + 41.40 + 53.10 + 59.40 + 63.90 = 260.40
+-----
+Full Name:PYSMENSKA Anna / KESAR Viktoriya
+Rank:5
+DivePoints:43.80 + 40.80 + 54.00 + 55.80 + 58.50 = 252.90
+-----
+Full Name:LEE Yejoo / OH Sooyeon
+Rank:6
+DivePoints:39.60 + 30.00 + 40.50 + 37.80 + 42.30 = 190.20
+-----
+Full Name:PAPWORTH BURREL Maria / VELAZQUEZ Rocio
+Rank:7
+DivePoints:45.60 + 40.80 + 54.90 + 0.00 + 44.10 = 185.40
+-----
+Full Name:SHANIDZE Mariam / SHARIA Tekle
+Rank:8
+DivePoints:0.00 + 0.00 + 0.00 + 0.00 + 0.00 = 0.00
+-----
