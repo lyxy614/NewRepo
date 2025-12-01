@@ -9,6 +9,7 @@ public class AthleteFullResults {
     private String finalRank = "*";
 
     // 三个阶段的得分信息（得分列表+总分）
+    //得分信息有两部分，创建一个内部类StageScore封装
     private StageScore preliminaryScore;
     private StageScore semifinalScore;
     private StageScore finalScore;
@@ -57,18 +58,21 @@ public class AthleteFullResults {
         if (preliminaryScore == null){
             detailResult.append("Preliminary Score:" + "*" + "\n");
         }
-        else if (semifinalScore == null){
+        else {
+            detailResult.append("Preliminary Score:" + preliminaryScore + "\n");
+        }
+        if (semifinalScore == null){
             detailResult.append("Semifinal Score:" + "*" + "\n");
         }
-        else if (finalScore == null){
+        else {
+            detailResult.append("Semifinal Score:" + semifinalScore + "\n");
+        }
+        if (finalScore == null){
             detailResult.append("Final Score:" + "*" + "\n");
         }
         else {
-            detailResult.append("Preliminary Score:" + preliminaryScore + "\n");
-            detailResult.append("Semifinal Score:" + semifinalScore + "\n");
             detailResult.append("Final Score:" + finalScore + "\n");
         }
-
         return detailResult.toString();
     }
 
@@ -81,6 +85,7 @@ public class AthleteFullResults {
             this.dives = dives;
             this.totalScore = totalScore;
         }
+        //顺便完成小分的拼接
         @Override
         public String toString(){
             StringBuilder stageScore = new StringBuilder();

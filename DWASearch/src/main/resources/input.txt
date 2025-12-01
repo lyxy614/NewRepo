@@ -1,2 +1,2 @@
-result men 1m springboard
-
+result men 10m synchronised   detail
+result   women 10m synchronised detail

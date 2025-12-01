@@ -1,32 +1,60 @@
-Full Name:MULLER Jette / HENTSCHEL Lena
-Rank:1
-DivePoints:46.80 + 45.60 + 61.20 + 66.03 + 67.50 = 287.13
+Full Name:BARTHEL Timo & EIKERMANN GREGORCHUK Jaden Shiloh
+Rank:* | * | 1
+Preliminary Score:*
+Semifinal Score:*
+Final Score:50.40 + 50.40 + 72.96 + 74.25 + 71.40 + 72.96 = 392.37
 -----
-Full Name:BENT-ASHMEIL Desharne / ROLLINSON Amy
-Rank:2
-DivePoints:46.20 + 42.00 + 66.60 + 63.90 + 63.00 = 281.70
+Full Name:JACHIM Filip & LUKASZEWICZ Robert
+Rank:* | * | 2
+Preliminary Score:*
+Semifinal Score:*
+Final Score:44.40 + 46.20 + 61.20 + 72.00 + 75.24 + 65.28 = 364.32
 -----
-Full Name:ERLAM Margo / WILSON Aimee
-Rank:3
-DivePoints:41.40 + 44.40 + 63.90 + 62.10 + 62.10 = 273.90
+Full Name:AVANESOV Danylo & HRYTSENKO Mark
+Rank:* | * | 3
+Preliminary Score:*
+Semifinal Score:*
+Final Score:48.00 + 48.00 + 68.40 + 78.72 + 54.45 + 64.32 = 361.89
 -----
-Full Name:VAN DUIJN Celine / JANSEN Inge
-Rank:4
-DivePoints:42.60 + 41.40 + 53.10 + 59.40 + 63.90 = 260.40
+Full Name:CAMACHO DEL HOYO Carlos & LINAN Max
+Rank:* | * | 4
+Preliminary Score:*
+Semifinal Score:*
+Final Score:50.40 + 45.00 + 68.40 + 63.36 + 60.39 + 72.96 = 360.51
 -----
-Full Name:PYSMENSKA Anna / KESAR Viktoriya
-Rank:5
-DivePoints:43.80 + 40.80 + 54.00 + 55.80 + 58.50 = 252.90
+Full Name:KANG Jiho & KIM Gyeongbin
+Rank:* | * | 5
+Preliminary Score:*
+Semifinal Score:*
+Final Score:43.80 + 42.60 + 53.10 + 54.72 + 68.31 + 59.16 = 321.69
 -----
-Full Name:LEE Yejoo / OH Sooyeon
-Rank:6
-DivePoints:39.60 + 30.00 + 40.50 + 37.80 + 42.30 = 190.20
+Full Name:PRENZYNA Espen & ROSLER Ole Johannes
+Rank:* | * | 99
+Preliminary Score:*
+Semifinal Score:*
+Final Score:52.20 + 51.60 + 74.88 + 72.27 + 69.36 + 73.92 = 394.23
 -----
-Full Name:PAPWORTH BURREL Maria / VELAZQUEZ Rocio
-Rank:7
-DivePoints:45.60 + 40.80 + 54.90 + 0.00 + 44.10 = 185.40
+Full Name:AVILA SANCHEZ Luis Carlo & WALDSTEINER Tom Laszlo
+Rank:* | * | 99
+Preliminary Score:*
+Semifinal Score:*
+Final Score:48.60 + 45.00 + 60.48 + 73.92 + 54.45 + 59.40 = 341.85
 -----
-Full Name:SHANIDZE Mariam / SHARIA Tekle
-Rank:8
-DivePoints:0.00 + 0.00 + 0.00 + 0.00 + 0.00 = 0.00
+Full Name:WASSEN Christina & WASSEN Elena
+Rank:* | * | 1
+Preliminary Score:*
+Semifinal Score:*
+Final Score:49.20 + 43.20 + 67.20 + 61.20 + 69.12 = 289.92
+-----
+Full Name:ANTOLINO Valeria & CARVAJAL Ana
+Rank:* | * | 2
+Preliminary Score:*
+Semifinal Score:*
+Final Score:42.60 + 40.20 + 61.20 + 56.55 + 54.72 = 255.27
+-----
+Full Name:COORDES Carolina & PFEIF Pauline Alexandra
+Rank:* | * | 99
+Preliminary Score:*
+Semifinal Score:*
+Final Score:46.20 + 46.80 + 55.68 + 66.24 + 57.60 = 272.52
 -----

@@ -9,8 +9,9 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Comparator;
 
-public class CoreModule implements ResultOutputModule {
+public class CoreModule implements OutputModule {
     private static boolean isWritten = false;
+
     @Override
     public void displayAllPlayersInfo(String outputFile, List<Athlete> athletes) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(outputFile, isWritten))){
@@ -27,6 +28,7 @@ public class CoreModule implements ResultOutputModule {
             System.out.println("写入失败" + e.getMessage());
         }
     }
+
     @Override
     public void displayResultsForEachEvent(String outputFile, CompetitionResultRoot competitionResultRoot) {
         List<Results> results = competitionResultRoot.getHeats().getFirst().getResults();
@@ -39,18 +41,29 @@ public class CoreModule implements ResultOutputModule {
             System.out.println("写入失败" + e.getMessage());
         }
     }
+
     @Override
     public void displayDetailResultsForEachEvent(String outputFile, CompetitionResultRoot competitionResultRoot){
         //创建Map，使得运动员的名字可以与其比赛结果一一对应，不会出现重复运动员的情况
         Map<String, AthleteFullResults> fullResultsMap = new HashMap<>();
-        //获取Heats的最后一个元素，因为该元素就是每个项目第一次比赛的内容，为后面的排序做准备
+        //获取Heats的最后一个元素，因为该元素就是每个项目第一次比赛的内容，获取该阶段名称，为后面的排序做准备
         String firstStageName = competitionResultRoot.getHeats().getLast().getStageName();
         //先从Heats开始遍历，首先获取比赛阶段信息(stageName)
         for (Heats heat : competitionResultRoot.getHeats()) {
             String stageName = heat.getStageName();
             //然后再遍历Results，向Map中放入运动员fullName-AthleteFullResults
             for (Results result : heat.getResults()) {
-                String fullName = result.getFullName();
+                //判断是否为双人项目，并获取运动员的fullName
+                //单人项目的Results下的Competitors为null，双人项目的Competitors为一个内含两个元素的数组
+                //Results中已经处理过双人项目名字先后顺序的问题
+                String fullName;
+                if (result.getCompetitors() != null){
+                    List<Competitors> competitorsList = result.getSortedCompetitors();
+                    fullName = competitorsList.getFirst().getFullName() + " & "  + competitorsList.getLast().getFullName();
+                }
+                else {
+                    fullName = result.getFullName();
+                }
                 AthleteFullResults athleteFullResults = fullResultsMap.getOrDefault(fullName, new AthleteFullResults());
                 //同时用switch检查当前比赛阶段，逐步初始化AthleteFullResults
                 switch (stageName) {
@@ -74,12 +87,13 @@ public class CoreModule implements ResultOutputModule {
         List<Map.Entry<String, AthleteFullResults>> resultsList = getEntries(fullResultsMap, firstStageName);
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(outputFile, isWritten))){
             for (Map.Entry<String, AthleteFullResults> entry : resultsList) {
-                bufferedWriter.write("Full Name:" + entry.getKey());
+                bufferedWriter.write("Full Name:" + entry.getKey().replace("/", "&"));
                 bufferedWriter.newLine();
                 bufferedWriter.write(entry.getValue().toString());
                 bufferedWriter.write("-----");
                 bufferedWriter.newLine();
             }
+            isWritten = true;
         }catch (IOException e){
             System.out.println("写入失败" + e.getMessage());
         }
@@ -109,5 +123,18 @@ public class CoreModule implements ResultOutputModule {
         };
         resultsList.sort(comparator);
         return resultsList;
+    }
+    //这个方法用于输出错误信息
+    @Override
+    public void displayWrongMessage(String outputFile, String wrongMessage) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(outputFile, isWritten))){
+            bufferedWriter.write(wrongMessage);
+            bufferedWriter.newLine();
+            bufferedWriter.write("-----");
+            bufferedWriter.newLine();
+            isWritten = true;
+        }catch (IOException e){
+            System.out.println("写入失败" + e.getMessage());
+        }
     }
 }
