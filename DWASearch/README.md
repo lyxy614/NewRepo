@@ -45,11 +45,11 @@ CompetitionResultRoot类
         ├── List<Dives> dives
         |   Dives类
         |   └── String divePoints
-        └── *List<Competitors> comprtitors
+        └── *List<Competitors> competitors
             Competitors类
              └── String fullName
 
-AthleteFullResult辅助类
+AthleteFullResults辅助类
 ├── String preliminaryRank 
 ├── String semifinalRank
 ├── String finalRank
@@ -110,7 +110,7 @@ CoreModule实现了自定义的OutputModule接口，并实现了里面的全部�
 
 不能执行的，检查前缀是否为"players"或者"result "(后带空格)，如否，则直接输出"Error"。
 
-如果前缀是"result "，那么命令只能是后面出问题了，统一输出"N/A"。
+如果前缀是"result "，那么命令只能是后面出问题了，统一输出"N/A"(包括比赛名不存在、detail拼写错误等情况)。
 
 ---
 #### OutputModule / CoreModule
@@ -141,7 +141,7 @@ OutputModule接口包含四个方法
 
 对于数据解析，我已经在DWAFile类使用了static代码块来初始化一遍所有数据并把他们封装进类。
 
-对于读写文件，我能想到的方案就是要写入文件的内容先整合到一起，再统一写入文件。不过时间有点紧，我还没有实现。
+对于读写文件，我能想到的方案就是要写入文件的内容先整合到一起，再统一写入文件(单次write)。不过时间有点紧，我还没有实现。BufferedWriter能提高写入效率，我也都在使用。
 
 # 3. 单元测试
 
