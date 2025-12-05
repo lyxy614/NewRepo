@@ -1,4 +1,4 @@
-package main.java;
+package main.java.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

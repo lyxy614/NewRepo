@@ -1,5 +1,7 @@
 package main.java;
 
+import main.java.model.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

@@ -1,5 +1,8 @@
 package main.java;
 
+import main.java.model.Athlete;
+import main.java.model.CompetitionResultRoot;
+
 import java.util.List;
 
 public interface OutputModule {
