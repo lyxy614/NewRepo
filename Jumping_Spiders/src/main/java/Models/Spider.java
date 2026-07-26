@@ -2,6 +2,7 @@ package Models;
 
 public abstract class Spider {
     protected String name;
+    protected String[] skillNames = new String[3];
     protected int health;
     protected int maxHealth;
     protected int attackPower;
@@ -13,6 +14,7 @@ public abstract class Spider {
     protected boolean isPrior = false;
     protected boolean isDead = false;
     protected boolean isSkillAvailable = true;
+    protected boolean isPassiveSkillAvailable = true;
 
     protected int playerNumber = 0;
     public Spider(String name, int health,  int attackPower, double bodyLength, int defendPower) {
@@ -36,8 +38,6 @@ public abstract class Spider {
         if(isEnemy){
             if(health <= p){
                 System.out.println("你成功击败了敌人!");
-                //抛出运行时错误，以结束游戏
-                //throw new HealthException("生命值耗尽");
                 isDead = true;
             }
             else{
@@ -48,8 +48,6 @@ public abstract class Spider {
         else if(playerNumber == 1){
             if(health <= p){
                 System.out.println("玩家2成功击败了敌人!");
-                //抛出运行时错误，以结束游戏
-                //throw new HealthException("生命值耗尽");
                 isDead = true;
             }
             else{
@@ -60,8 +58,6 @@ public abstract class Spider {
         else if(playerNumber == 2){
             if(health <= p){
                 System.out.println("玩家1成功击败了敌人!");
-                //抛出运行时错误，以结束游戏
-                //throw new HealthException("生命值耗尽");
                 isDead = true;
             }
             else{
@@ -72,8 +68,6 @@ public abstract class Spider {
         else{
             if(health <= p){
                 System.out.println("你失败了!");
-                //抛出运行时错误，以结束游戏
-                //throw new HealthException("生命值耗尽");
                 isDead = true;
             }
             else{
@@ -83,7 +77,7 @@ public abstract class Spider {
         }
     }
     public void defend(){
-        int restoration = 0;
+        int restoration;
         if(health + defendPower > maxHealth){
             restoration = maxHealth - health;
         }
@@ -104,13 +98,14 @@ public abstract class Spider {
             System.out.println("你的" + name + "通过防御恢复了" + restoration + "点生命值，当前生命值为 " + health);
         }
     }
-    public void jump(){
-
-    }
 
     public abstract void skill();
+    public void passiveSkill(){}
+    public void passiveSkill(Spider enemySpider){}
     public abstract void displayAttackColumns();
     public  abstract void displayDefendColumns();
+    public abstract void resetAttackPower();
+    public abstract void resetDefendPower();
 
     public void setEnemy(){
         isEnemy = true;
@@ -120,6 +115,9 @@ public abstract class Spider {
     }
     public void resetAssaultable(){
         isAssaultable = true;
+    }
+    public void resetPrior(){
+        isPrior = false;
     }
 
     public String getName() {

@@ -1,12 +1,11 @@
-import Models.BlackJumpingSpider;
-import Models.ClamSandSpider;
-import Models.Spider;
+import Exceptions.GenerateRandomException;
+import Models.*;
 
 import java.util.Scanner;
 import java.util.Random;
 public class Jumping_Spiders {
     public static void main(String[] args) {
-        Spider spider1, spider2;
+        Spider spiders[] = new Spider[3];
         //开始界面
         displayStartColumns();
         Scanner sc = new Scanner(System.in);
@@ -19,83 +18,98 @@ public class Jumping_Spiders {
                 flag2 = sc.nextInt();
                 switch (flag2) {
                     case 1:
-                        spider1 = new BlackJumpingSpider();
-                        System.out.println("你选择了" + spider1.getName());
+                        spiders[1] = new BlackJumpingSpider();
                         break;
                     case 2:
-                        spider1 = new ClamSandSpider();
-                        System.out.println("你选择了" + spider1.getName());
+                        spiders[1] = new ClamSandSpider();
+                        break;
+                    case 3:
+                        spiders[1] = new SawShowySpider();
+                        break;
+                    case 4:
+                        spiders[1] = new WhiteSpottedCatJumpingSpider();
                         break;
                     default:
                         System.out.println("你选择的序号不在范围内，请重新选择");
                         flag1 = 1;
                         continue;
                 }
+                System.out.println("你选择了" + spiders[1].getName());
+                //电脑抽取跳蛛
                 Random random = new Random();
-                flag2 = random.nextInt(2) + 1;
+                flag2 = random.nextInt(4) + 1;
                 switch (flag2) {
                     case 1:
-                        spider2 = new BlackJumpingSpider();
-                        System.out.println("电脑选择了" + spider2.getName());
+                        spiders[2] = new BlackJumpingSpider();
                         break;
                     case 2:
-                        spider2 = new ClamSandSpider();
-                        System.out.println("电脑选择了" + spider2.getName());
+                        spiders[2] = new ClamSandSpider();
+                        break;
+                    case 3:
+                        spiders[2] = new SawShowySpider();
+                        break;
+                    case 4:
+                        spiders[2] = new WhiteSpottedCatJumpingSpider();
                         break;
                     default:
                         System.err.println("随机数生成出错");
                         return;
                 }
-                spider2.setEnemy();
+                System.out.println("电脑选择了" + spiders[2].getName());
+                spiders[2].setEnemy();
                 //游戏主程序
-                RunSpiders runSpiders = new RunSpiders(spider1, spider2);
-                runSpiders.runSpiders();
+                try{
+                    RunSpiders runSpiders = new RunSpiders(spiders[1], spiders[2]);
+                    runSpiders.runSpiders();
+                }catch (GenerateRandomException e){
+                    System.err.println(e);
+                }
                 displayStartColumns();
                 flag1 = sc.nextInt();
             }
             //双人模式
             else if(flag1 == 2){
-                System.out.println("玩家1：");
-                displaySpiderColumns();
-                flag2 = sc.nextInt();
-                //玩家1选择创建对象逻辑
-                switch (flag2) {
-                    case 1:
-                        spider1 = new BlackJumpingSpider();
-                        System.out.println("玩家1选择了" + spider1.getName());
+                for(int i = 1; i < 3; i++){
+                    System.out.println("玩家" + i + "：");
+                    displaySpiderColumns();
+                    flag2 = sc.nextInt();
+                    //玩家选择创建对象逻辑
+
+                    switch (flag2) {
+                        case 1:
+                            spiders[i] = new BlackJumpingSpider();
+                            break;
+                        case 2:
+                            spiders[i] = new ClamSandSpider();
+                            break;
+                        case 3:
+                            spiders[i] = new SawShowySpider();
+                            break;
+                        case 4:
+                            spiders[i] = new WhiteSpottedCatJumpingSpider();
+                            break;
+                        default:
+                            System.out.println("玩家" + i + "选择的序号不在范围内，请重新选择");
+                            flag1 = 3;
+                    }
+                    if(flag1 == 3){
                         break;
-                    case 2:
-                        spider1 = new ClamSandSpider();
-                        System.out.println("玩家1选择了" + spider1.getName());
-                        break;
-                    default:
-                        System.out.println("玩家1选择的序号不在范围内，请重新选择");
-                        flag1 = 1;
-                        continue;
+                    }
+                    System.out.println("玩家" + i + "选择了" + spiders[i].getName());
+                    spiders[i].setPlayerNumber(i);
                 }
-                spider1.setPlayerNumber(1);
-                System.out.println("玩家2：");
-                displaySpiderColumns();
-                flag2 = sc.nextInt();
-                //玩家2选择创建对象逻辑
-                switch (flag2) {
-                    case 1:
-                        spider2 = new BlackJumpingSpider();
-                        System.out.println("玩家2选择了" + spider2.getName());
-                        break;
-                    case 2:
-                        spider2 = new ClamSandSpider();
-                        System.out.println("玩家2选择了" + spider2.getName());
-                        break;
-                    default:
-                        System.out.println("玩家2选择的序号不在范围内，请两名玩家重新选择");
-                        flag1 = 1;
-                        continue;
+                if(flag1 == 3){
+                    flag1 = 2;
+                    continue;
                 }
-                spider2.setPlayerNumber(2);
+
                 //游戏主程序
-                RunSpiders runSpiders = new RunSpiders(spider1, spider2);
-                runSpiders.runSpiders();
+                try{
+                    RunSpiders runSpiders = new RunSpiders(spiders[1], spiders[2]);
+                    runSpiders.runSpiders();
+                }catch (GenerateRandomException e){
+                    System.err.println(e);
+                }
                 displayStartColumns();
                 flag1 = sc.nextInt();
             }
@@ -124,8 +138,10 @@ public class Jumping_Spiders {
                 """;
         String s1 = "1." + "黑色蝇虎" + "\n";
         String s2 = "2." + "花蛤沙蛛" + "\n";
+        String s3 = "3." + "锯艳蛛" + "\n";
+        String s4 = "4." + "白斑猫跳蛛" + "\n";
 
-        String choices = s + s1 + s2;
+        String choices = s + s1 + s2 + s3 + s4;
         System.out.println(choices);
     }
 }
