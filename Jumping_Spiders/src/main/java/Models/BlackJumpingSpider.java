@@ -1,10 +1,23 @@
 package Models;
 
 public class BlackJumpingSpider extends Spider {
+    private static final Ability[] abilityArray;
+    private static final int maxLevel = 5;
+    static{
+        abilityArray = new Ability[maxLevel + 1];
+        abilityArray[1] = new Ability(35, 25, 5, 1.5, 2);
+        abilityArray[2] = new Ability(50, 50, 10, 3.5, 6);
+        abilityArray[3] = new Ability(70, 85, 20, 6, 15);
+        abilityArray[4] = new Ability(100, 125, 35, 8, 25);
+        abilityArray[5] = new Ability(120, 160, 45, 10, 35);
+    }
     public BlackJumpingSpider() {
-        super("黑色蝇虎", 120, 45, 12.0, 35);
-        this.maxHealth = 120;
+        super("黑色蝇虎", 1);
         this.skillNames[0] = "潜行（优先进攻权）";
+    }
+    @Override
+    public String toString() {
+        return "黑色蝇虎";
     }
     @Override
     public void skill(){
@@ -13,33 +26,11 @@ public class BlackJumpingSpider extends Spider {
         isSkillAvailable = false;
     }
     @Override
-    public void resetAttackPower(){
-        attackPower = 45;
+    public Ability[] getAbilityArray(){
+        return abilityArray;
     }
     @Override
-    public void resetDefendPower(){
-        defendPower = 35;
-    }
-    @Override
-    public void displayAttackColumns(){
-        String columns = name + "\n" + """
-                ————请选择进攻或使用技能————
-                1.进攻（力量45）
-                """;
-        if(isSkillAvailable){
-            columns = columns + "2." + skillNames[0] + "\n";
-        }
-        System.out.println(columns);
-    }
-    @Override
-    public void displayDefendColumns(){
-        String columns = name + "\n" + """
-                ————请选择防御或使用技能————
-                1.防御（防御力35）
-                """;
-        if(isSkillAvailable){
-            columns = columns + "2." + skillNames[0] + "\n";
-        }
-        System.out.println(columns);
+    public int getMaxLevel(){
+        return maxLevel;
     }
 }

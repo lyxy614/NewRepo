@@ -2,12 +2,15 @@ package Models;
 
 public abstract class Spider {
     protected String name;
-    protected String[] skillNames = new String[3];
     protected int health;
     protected int maxHealth;
     protected int attackPower;
     protected double bodyLength;
     protected int defendPower;
+    protected int level;
+    protected int empiricalValue;
+    protected int maxEmpiricalValue;
+    protected String[] skillNames = new String[3];
 
     protected boolean isEnemy = false;
     protected boolean isAssaultable = true;
@@ -17,24 +20,30 @@ public abstract class Spider {
     protected boolean isPassiveSkillAvailable = true;
 
     protected int playerNumber = 0;
-    public Spider(String name, int health,  int attackPower, double bodyLength, int defendPower) {
+    public Spider(String name, int level) {
         this.name = name;
-        this.health = health;
-        this.attackPower = attackPower;
-        this.bodyLength = bodyLength;
-        this.defendPower = defendPower;
+        this.level = level;
+
+        Ability[] abilityArray = getAbilityArray();
+        this.maxHealth = abilityArray[level].maxHealth;
+        this.health = maxHealth;
+        this.maxEmpiricalValue = abilityArray[level].maxEmpiricalValue;
+        this.attackPower = abilityArray[level].attackPower;
+        this.bodyLength = abilityArray[level].bodyLength;
+        this.defendPower = abilityArray[level].defendPower;
     }
 
     public void attack(Spider enemySpider){
         if(enemySpider.isAssaultable){
             enemySpider.beAttacked(attackPower);
+            empiricalValue += attackPower;
         }
         else{
             System.out.println("您暂时无法攻击" + enemySpider.name);
             enemySpider.isAssaultable = true;
         }
     }
-    public void beAttacked(int p){
+    protected void beAttacked(int p){
         if(isEnemy){
             if(health <= p){
                 System.out.println("你成功击败了敌人!");
@@ -97,15 +106,59 @@ public abstract class Spider {
         else{
             System.out.println("你的" + name + "通过防御恢复了" + restoration + "点生命值，当前生命值为 " + health);
         }
+        empiricalValue += restoration;
     }
 
     public abstract void skill();
     public void passiveSkill(){}
     public void passiveSkill(Spider enemySpider){}
-    public abstract void displayAttackColumns();
-    public  abstract void displayDefendColumns();
-    public abstract void resetAttackPower();
-    public abstract void resetDefendPower();
+    public void addEmpiricalValue(int p){
+        empiricalValue += p;
+    }
+    public void upgrade(){
+        if(level < getMaxLevel()){
+            if(empiricalValue >= maxEmpiricalValue){
+                empiricalValue -= maxEmpiricalValue;
+                level++;
+                Ability[] abilityArray = getAbilityArray();
+                maxEmpiricalValue = abilityArray[level].maxEmpiricalValue;
+                maxHealth = abilityArray[level].maxHealth;
+                health = maxHealth;
+                attackPower = abilityArray[level].attackPower;
+                bodyLength = abilityArray[level].bodyLength;
+                defendPower = abilityArray[level].defendPower;
+                isSkillAvailable = true;
+                System.out.println(name + " 升级至 " + "Lv." + level);
+            }
+        }
+    }
+    public abstract String toString();
+    public void displayAttackColumns(){
+        String columns = name + "\n"
+                + "————请选择进攻或使用技能————" + "\n"
+                + "1.进攻（力量" + attackPower + "）" + "\n";
+        if(isSkillAvailable){
+            columns = columns + "2." + skillNames[0] + "\n";
+        }
+        System.out.println(columns);
+    }
+    public void displayDefendColumns(){
+        String columns = name + "\n"
+                + "————请选择防御或使用技能————" + "\n"
+                + "1.防御（防御力" + defendPower + "）" + "\n";
+        if(isSkillAvailable){
+            columns = columns + "2." + skillNames[0] + "\n";
+        }
+        System.out.println(columns);
+    }
+    public void resetAttackPower(){
+        Ability[] abilityArray = getAbilityArray();
+        attackPower = abilityArray[level].attackPower;
+    }
+    public void resetDefendPower(){
+        Ability[] abilityArray = getAbilityArray();
+        defendPower = abilityArray[level].defendPower;
+    }
 
     public void setEnemy(){
         isEnemy = true;
@@ -116,6 +169,8 @@ public abstract class Spider {
     public void resetAssaultable(){
         isAssaultable = true;
     }
+    public void resetIsSkillAvailable(){isSkillAvailable = true;}
+    public void resetIsPassiveSkillAvailable(){isPassiveSkillAvailable = true;}
     public void resetPrior(){
         isPrior = false;
     }
@@ -129,6 +184,10 @@ public abstract class Spider {
     public int getHealth() {
         return health;
     }
+    public  int getMaxHealth() {return maxHealth;}
+    public int getEmpiricalValue() {return empiricalValue;}
+    public int getMaxEmpiricalValue() {return maxEmpiricalValue;}
+    public int getLevel() {return level;}
     public int getAttackPower() {
         return attackPower;
     }
@@ -153,4 +212,6 @@ public abstract class Spider {
     public boolean getIsPrior() {
         return isPrior;
     }
+    public abstract Ability[]  getAbilityArray();
+    public abstract int getMaxLevel();
 }

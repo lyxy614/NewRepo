@@ -40,7 +40,7 @@ public class RunSpiders {
         }
         while(!spiders[1].getIsDead() && !spiders[2].getIsDead()){
             counter++;
-            System.out.println("——————第" + counter + "回合——————");
+            System.out.println("——————    第" + counter + "回合    ——————");
             //回合逻辑
             //优先进攻方先进攻或使用技能
             if(spiders[2].getIsEnemy()){
@@ -49,6 +49,9 @@ public class RunSpiders {
             }
             //（1）判断优先进攻方
             //（2）让玩家选择是否进攻和使用技能
+
+            //攻击开始前双方信息显示
+            displaySpiderMessages(spiders);
             System.out.println("玩家" + spiders[flag].getPlayerNumber() +"：");
             spiders[flag].displayAttackColumns();
             choice = sc.nextLine();
@@ -93,6 +96,9 @@ public class RunSpiders {
             else{
                 flag = 1;
             }
+            //防御开始前双方信息显示
+            displaySpiderMessages(spiders);
+
             System.out.println("玩家" + spiders[flag].getPlayerNumber() +"：");
             spiders[flag].displayDefendColumns();
             choice = sc.nextLine();
@@ -133,10 +139,12 @@ public class RunSpiders {
             else if(spiders[2].getIsPrior()){
                 flag = 2;
             }
+            //重置双方跳蛛数值
             for(int i = 1; i < spiders.length; i++){
                 spiders[i].resetAttackPower();
                 spiders[i].resetDefendPower();
                 spiders[i].resetPrior();
+                spiders[i].upgrade();
             }
         }
         //判断跳蛛是否死亡，宣布胜者，结束游戏
@@ -156,5 +164,11 @@ public class RunSpiders {
                   .....请按任意键开始游戏.....
                 """;
         System.out.println(rules);
+    }
+    public static void displaySpiderMessages(Spider[] spiders){
+        for (int i = 1; i < spiders.length; i++){
+            System.out.print("玩家" + i + spiders[i].getName() + " Lv." + spiders[i].getLevel() + "  生命值" + spiders[i].getHealth() + "/" + spiders[i].getMaxHealth());
+            System.out.println("  经验值" + spiders[i].getEmpiricalValue() + "/" +  spiders[i].getMaxEmpiricalValue());
+        }
     }
 }

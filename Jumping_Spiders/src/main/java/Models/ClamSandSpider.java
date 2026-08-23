@@ -1,10 +1,23 @@
 package Models;
 
 public class ClamSandSpider extends Spider{
+    private final static Ability[] abilityArray;
+    private final static int maxLevel = 5;
+    static{
+        abilityArray = new Ability[maxLevel + 1];
+        abilityArray[1] = new Ability(30, 10, 5, 1, 2);
+        abilityArray[2] = new Ability(40, 25, 8, 3, 5);
+        abilityArray[3] = new Ability(50, 40, 12, 5, 7);
+        abilityArray[4] = new Ability(65, 60, 16, 6.5, 10);
+        abilityArray[5] = new Ability(80, 80, 20, 7.5, 15);
+    }
     public ClamSandSpider() {
-        super("花蛤沙蛛", 80, 20, 7.5, 10);
-        this.maxHealth = 80;
+        super("花蛤沙蛛", 1);
         this.skillNames[0] = "躲藏（免伤一回合）";
+    }
+    @Override
+    public String toString(){
+        return "花蛤沙蛛";
     }
     @Override
     public void skill(){
@@ -13,33 +26,11 @@ public class ClamSandSpider extends Spider{
         isSkillAvailable = false;
     }
     @Override
-    public void resetAttackPower(){
-        attackPower = 20;
+    public Ability[] getAbilityArray() {
+        return abilityArray;
     }
     @Override
-    public void resetDefendPower(){
-        defendPower = 10;
-    }
-    @Override
-    public void displayAttackColumns(){
-        String columns = name + "\n" + """
-                ————请选择进攻或使用技能————
-                1.进攻（力量20）
-                """;
-        if(isSkillAvailable){
-            columns = columns + "2." + skillNames[0] + "\n";
-        }
-        System.out.println(columns);
-    }
-    @Override
-    public void displayDefendColumns(){
-        String columns = name + "\n" + """
-                ————请选择防御或使用技能————
-                1.防御（防御力10）
-                """;
-        if(isSkillAvailable){
-            columns = columns + "2." + skillNames[0] + "\n";
-        }
-        System.out.println(columns);
+    public int getMaxLevel() {
+        return maxLevel;
     }
 }

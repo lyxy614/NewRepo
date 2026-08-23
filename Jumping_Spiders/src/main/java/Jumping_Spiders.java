@@ -1,21 +1,41 @@
 import Exceptions.GenerateRandomException;
 import Models.*;
 
-import java.util.Scanner;
-import java.util.Random;
+import java.util.*;
+
 public class Jumping_Spiders {
     public static void main(String[] args) {
-        Spider spiders[] = new Spider[3];
+        List<Spider> spiderList = new ArrayList<>();
+        Spider[] spiders = new Spider[3];
+        //装填所有蜘蛛
+        spiderList.add(new BlackJumpingSpider());
+        spiderList.add(new ClamSandSpider());
+        spiderList.add(new SawShowySpider());
+        spiderList.add(new WhiteSpottedCatJumpingSpider());
+//        spiderList.add();
+//        spiderList.add();
+//        spiderList.add();
         //开始界面
         displayStartColumns();
         Scanner sc = new Scanner(System.in);
-        int flag1 = sc.nextInt();
+        int flag1;
+        try{
+            flag1 = sc.nextInt();
+        }catch(InputMismatchException e){
+            System.out.println("未输入数字，游戏退出");
+            flag1 = 3;
+        }
         int flag2;
         while(flag1 != 3){
             //单人模式
             if(flag1 == 1){
-                displaySpiderColumns();
-                flag2 = sc.nextInt();
+                displaySpiderColumns(spiderList);
+                try{
+                    flag2 = sc.nextInt();
+                }catch(InputMismatchException e){
+                    sc.next();
+                    flag2 = 0;
+                }
                 switch (flag2) {
                     case 1:
                         spiders[1] = new BlackJumpingSpider();
@@ -65,14 +85,24 @@ public class Jumping_Spiders {
                     System.err.println(e);
                 }
                 displayStartColumns();
-                flag1 = sc.nextInt();
+                try{
+                    flag1 = sc.nextInt();
+                }catch(InputMismatchException e){
+                    System.out.println("未输入数字，游戏退出");
+                    flag1 = 3;
+                }
             }
             //双人模式
             else if(flag1 == 2){
                 for(int i = 1; i < 3; i++){
                     System.out.println("玩家" + i + "：");
-                    displaySpiderColumns();
-                    flag2 = sc.nextInt();
+                    displaySpiderColumns(spiderList);
+                    try{
+                        flag2 = sc.nextInt();
+                    }catch(InputMismatchException e){
+                        sc.next();
+                        flag2 = 0;
+                    }
                     //玩家选择创建对象逻辑
 
                     switch (flag2) {
@@ -111,14 +141,25 @@ public class Jumping_Spiders {
                     System.err.println(e);
                 }
                 displayStartColumns();
-                flag1 = sc.nextInt();
+                try{
+                    flag1 = sc.nextInt();
+                }catch(InputMismatchException e){
+                    System.out.println("未输入数字，游戏退出");
+                    flag1 = 3;
+                }
             }
-            //退出游戏
             else{
+                System.out.println("数字不在范围内，请重新选择");
                 displayStartColumns();
-                flag1 = sc.nextInt();
+                try{
+                    flag1 = sc.nextInt();
+                }catch(InputMismatchException e){
+                    System.out.println("未输入数字，游戏退出");
+                    flag1 = 3;
+                }
             }
         }
+        //退出游戏
         System.out.println("游戏已退出");
     }
     public static void displayStartColumns(){
@@ -128,21 +169,16 @@ public class Jumping_Spiders {
                        2.双人模式
                        3.退出游戏
                 输入对应数字并按下回车以选择
-                (请勿输入字符串！！！)
                 """;
         System.out.println(s);
     }
-    public static void displaySpiderColumns(){
-        String s = """
-                ————————选择跳蛛———————
-                """;
-        String s1 = "1." + "黑色蝇虎" + "\n";
-        String s2 = "2." + "花蛤沙蛛" + "\n";
-        String s3 = "3." + "锯艳蛛" + "\n";
-        String s4 = "4." + "白斑猫跳蛛" + "\n";
-
-        String choices = s + s1 + s2 + s3 + s4;
-        System.out.println(choices);
+    public static void displaySpiderColumns(List<Spider> spiderList){
+        String s = "————————选择跳蛛————";
+        System.out.println(s);
+        int i = 1;
+        for(Iterator<Spider> spiderIterator = spiderList.iterator(); spiderIterator.hasNext();){
+            System.out.println(i++ + "." + spiderIterator.next());
+        }
     }
 }
 
