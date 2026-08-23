@@ -1,4 +1,41 @@
-# 跳蛛大战游戏（更新日志）
+# 跳蛛大战游戏
+这是一个基于最基础的Java面向对象编程来实现的一个控制台游戏，玩家在游戏中可以选择自己的跳蛛来与敌对跳蛛作战，目前仅能双人游玩。
+
+- 项目结构
+  ```
+  Jumping_Spiders
+  │  .gitignore
+  │  pom.xml
+  │  README.md
+  │
+  ├─src
+  │  ├─main
+  │  │  ├─java
+  │  │  │  │  Jumping_Spiders.java
+  │  │  │  │  RunSpiders.java
+  │  │  │  │
+  │  │  │  ├─Exceptions
+  │  │  │  │      GenerateRandomException.java
+  │  │  │  │      HealthException.java
+  │  │  │  │
+  │  │  │  └─Models
+  │  │  │          Ability.java
+  │  │  │          BlackJumpingSpider.java
+  │  │  │          ClamSandSpider.java
+  │  │  │          SawShowySpider.java
+  │  │  │          Spider.java
+  │  │  │          WhiteSpottedCatJumpingSpider.java
+  │  │  └─resources
+  │  │      └─META-INF
+  │  │              MANIFEST.MF
+  │  └─test
+  │      └─java
+  └─version_repository
+        Jumping_Spiders(v1.0.0).jar
+        Jumping_Spiders(v1.0.1).jar
+        Jumping_Spiders(v1.1.0).jar
+  ```
+## 更新日志（从旧到新）
 ## V1.0.0
 
 该项目是一个非常简单的控制台程序。这是该项目的第一个版本。
