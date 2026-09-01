@@ -16,7 +16,6 @@
   │  │  │  │
   │  │  │  ├─Exceptions
   │  │  │  │      GenerateRandomException.java
-  │  │  │  │      HealthException.java
   │  │  │  │
   │  │  │  └─Models
   │  │  │          Ability.java
