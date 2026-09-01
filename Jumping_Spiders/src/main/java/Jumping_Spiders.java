@@ -173,7 +173,7 @@ public class Jumping_Spiders {
         System.out.println(s);
     }
     public static void displaySpiderColumns(List<Spider> spiderList){
-        String s = "————————选择跳蛛————";
+        String s = "————————选择跳蛛———————";
         System.out.println(s);
         int i = 1;
         for(Iterator<Spider> spiderIterator = spiderList.iterator(); spiderIterator.hasNext();){

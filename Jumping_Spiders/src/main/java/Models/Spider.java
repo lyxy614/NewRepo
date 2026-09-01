@@ -134,7 +134,7 @@ public abstract class Spider {
     }
     public abstract String toString();
     public void displayAttackColumns(){
-        String columns = name + "\n"
+        String columns = name + "Lv." + level + "\n"
                 + "————请选择进攻或使用技能————" + "\n"
                 + "1.进攻（力量" + attackPower + "）" + "\n";
         if(isSkillAvailable){
@@ -143,7 +143,7 @@ public abstract class Spider {
         System.out.println(columns);
     }
     public void displayDefendColumns(){
-        String columns = name + "\n"
+        String columns = name + "Lv." + level + "\n"
                 + "————请选择防御或使用技能————" + "\n"
                 + "1.防御（防御力" + defendPower + "）" + "\n";
         if(isSkillAvailable){
@@ -212,6 +212,7 @@ public abstract class Spider {
     public boolean getIsPrior() {
         return isPrior;
     }
+
     public abstract Ability[]  getAbilityArray();
     public abstract int getMaxLevel();
 }

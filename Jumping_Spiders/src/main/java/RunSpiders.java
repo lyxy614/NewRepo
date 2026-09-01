@@ -1,10 +1,9 @@
-import Exceptions.GenerateRandomException;
 import Models.Spider;
 
 import java.util.Random;
 import java.util.Scanner;
 public class RunSpiders {
-    private Spider[] spiders = new Spider[3];
+    private final Spider[] spiders = new Spider[3];
 
     public RunSpiders(Spider spider1, Spider spider2) {
         this.spiders[1] = spider1;
@@ -14,11 +13,11 @@ public class RunSpiders {
         displayRules();
         Scanner sc = new Scanner(System.in);
         sc.nextLine();
-        String choice = "0";
+        String choice;
         int counter = 0;
         //优先进攻权抽取
         Random rand = new Random();
-        int flag = rand.nextInt(2) + 1;
+        int flag = rand.nextInt(2) + 1;     //用于标注正在进攻或防御的一方
         if(flag == 1){
             if(spiders[2].getIsEnemy()){
                 System.out.println("本回合玩家优先进攻");
@@ -35,26 +34,32 @@ public class RunSpiders {
                 System.out.println("本回合玩家2优先攻击");
             }
         }
-        else{
-            throw new GenerateRandomException("优先进攻随机数生成错误");
-        }
+
         while(!spiders[1].getIsDead() && !spiders[2].getIsDead()){
             counter++;
             System.out.println("——————    第" + counter + "回合    ——————");
             //回合逻辑
             //优先进攻方先进攻或使用技能
-            if(spiders[2].getIsEnemy()){
-                System.out.println("人机对战功能尚未实现，敬请期待");
-                break;
-            }
+//            if(spiders[2].getIsEnemy()){
+//                System.out.println("人机对战功能尚未实现，敬请期待");
+//                break;
+//            }
             //（1）判断优先进攻方
             //（2）让玩家选择是否进攻和使用技能
 
             //攻击开始前双方信息显示
             displaySpiderMessages(spiders);
-            System.out.println("玩家" + spiders[flag].getPlayerNumber() +"：");
-            spiders[flag].displayAttackColumns();
-            choice = sc.nextLine();
+
+            if(spiders[flag].getPlayerNumber() == 0 && !spiders[flag].getIsEnemy()){
+                System.out.println("你的进攻回合：");
+                spiders[flag].displayAttackColumns();
+            }
+            else if(spiders[flag].getPlayerNumber() != 0){
+                System.out.println("玩家" + spiders[flag].getPlayerNumber() +"：");
+                spiders[flag].displayAttackColumns();
+            }
+            //
+            choice = getActionChoice(spiders[1], spiders[2], flag, sc);
             if(choice.equals("2") && spiders[flag].getIsSkillAvailable()){
                 if(flag == 1){
                     spiders[1].skill();
@@ -89,7 +94,7 @@ public class RunSpiders {
             if(spiders[1].getIsDead() || spiders[2].getIsDead()){
                 break;
             }
-            //防守方选择是否防御或使用技能
+            //翻转flag，标注防守方
             if(flag == 1){
                 flag = 2;
             }
@@ -99,9 +104,17 @@ public class RunSpiders {
             //防御开始前双方信息显示
             displaySpiderMessages(spiders);
 
-            System.out.println("玩家" + spiders[flag].getPlayerNumber() +"：");
-            spiders[flag].displayDefendColumns();
-            choice = sc.nextLine();
+            if(spiders[flag].getPlayerNumber() == 0 && !spiders[flag].getIsEnemy()){
+                System.out.println("你的防守回合：");
+                spiders[flag].displayDefendColumns();
+            }
+            else if(spiders[flag].getPlayerNumber() != 0){
+                System.out.println("玩家" + spiders[flag].getPlayerNumber() +"：");
+                spiders[flag].displayDefendColumns();
+            }
+            //防守方选择是否防御或使用技能
+            //
+            choice = getActionChoice(spiders[1], spiders[2], flag, sc);
             if(choice.equals("2") && spiders[flag].getIsSkillAvailable()){
                 if(flag == 1){
                     spiders[1].skill();
@@ -144,6 +157,7 @@ public class RunSpiders {
                 spiders[i].resetAttackPower();
                 spiders[i].resetDefendPower();
                 spiders[i].resetPrior();
+                //跳蛛升级
                 spiders[i].upgrade();
             }
         }
@@ -152,7 +166,7 @@ public class RunSpiders {
         System.out.println("共" + counter + "回合");
         System.out.println();
     }
-    public static void displayRules(){
+    private static void displayRules(){
         String rules = """
                 ————————————游戏规则————————————
                 1.随机分配进攻方，之后每一回合反转
@@ -165,10 +179,28 @@ public class RunSpiders {
                 """;
         System.out.println(rules);
     }
-    public static void displaySpiderMessages(Spider[] spiders){
+    private static void displaySpiderMessages(Spider[] spiders){
         for (int i = 1; i < spiders.length; i++){
-            System.out.print("玩家" + i + spiders[i].getName() + " Lv." + spiders[i].getLevel() + "  生命值" + spiders[i].getHealth() + "/" + spiders[i].getMaxHealth());
+            System.out.print("玩家" + i);
+            if(i == 2 && spiders[i].getIsEnemy()){
+                System.out.print("（人机）");
+            }
+            System.out.println(spiders[i].getName() + " Lv." + spiders[i].getLevel() + "  生命值" + spiders[i].getHealth() + "/" + spiders[i].getMaxHealth());
             System.out.println("  经验值" + spiders[i].getEmpiricalValue() + "/" +  spiders[i].getMaxEmpiricalValue());
+        }
+    }
+    private static String getActionChoice(Spider spider1, Spider spider2, int flag, Scanner sc){
+        if(flag == 2 && spider2.getIsEnemy()){
+            //人机逻辑
+            if(spider2.getIsSkillAvailable()){
+                if(spider1.getHealth() / (double)spider1.getMaxHealth() < 0.5 || spider2.getHealth() / (double)spider2.getMaxHealth() < 0.4){
+                    return "12";
+                }
+            }
+            return "1";
+        }
+        else{
+            return sc.nextLine();
         }
     }
 }
